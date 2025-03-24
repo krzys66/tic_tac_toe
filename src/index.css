@@ -349,3 +349,7 @@ ol {
     transform: scale(1);
   }
 }
+
+#game-board {
+  list-style-type: none;
+}
