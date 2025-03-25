@@ -1,5 +1,5 @@
-# React Tic Tac Toe
+# Tic Tac Toe in React 
 
-Every components are in the `src/components`
+Every components are in the `src/components` \n
 Main page is `src/App.jsx`
 All css you need is in the `src/App.css`
