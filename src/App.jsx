@@ -3,6 +3,7 @@ import Player from "./components/Player";
 import { useState } from "react";
 import WINNNING_CONTRIBUTIONS from "./winning_contributions";
 import Log from "./components/Log";
+import GameOver from "./components/GameOver";
 
 function deriveActivePlayer(turns) {
   return turns.length % 2 === 0 ? 'X' : 'O';
@@ -65,7 +66,7 @@ function App() {
           <Player initialName={"Player 2"} symbol={"O"} isActive={activePlayer === 'O'} />
         </ol>
         <GameBoard onSelectSquare={handleChangePlayer} actualPlayerSymbol={activePlayer} turns={gameTurns} />
-        {winner && (
+        {/* {winner && (
           <div id="winner">
             <span className="highlight-player">{winner}</span> wins!
           </div>
@@ -74,7 +75,9 @@ function App() {
           <div id="winner">
             <span className="highlight-player">It's a draw!</span>
           </div>
-        )}
+        )} */}
+        {winner && <GameOver winner={winner} />}
+        {!winner && isBoardFull(board) && <GameOver winner="Draw" />}
       </div>
       <Log turns={gameTurns} />
       
