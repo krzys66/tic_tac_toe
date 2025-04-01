@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Player({ initialName, symbol, isActive }) {
+export default function Player({ initialName, symbol, isActive }) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(initialName);
 

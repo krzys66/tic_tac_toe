@@ -1,7 +1,8 @@
 import GameBoard from "./components/GameBoard";
-import { Player } from "./components/Player";
+import Player from "./components/Player";
 import { useState } from "react";
 import WINNNING_CONTRIBUTIONS from "./winning_contributions";
+import Log from "./components/Log";
 
 function deriveActivePlayer(turns) {
   return turns.length % 2 === 0 ? 'X' : 'O';
@@ -23,6 +24,10 @@ function App() {
     board[row][col] = player;
   }
 
+  const isBoardFull = (board) => {
+    return board.every((row) => row.every((cell) => cell !== null));
+  };
+
   let winner = null;
   for (const contribution of WINNNING_CONTRIBUTIONS) {
     const first = board[contribution[0].row][contribution[0].col];
@@ -35,6 +40,10 @@ function App() {
   }
 
   function handleChangePlayer(rowIndex, colIndex) {
+    if (winner || isBoardFull(board)) {
+      return;
+    }
+
     setGameTurns((previousTurns) => {
       if (previousTurns.some(turn => turn.square.row === rowIndex && turn.square.col === colIndex)) {
         return previousTurns;
@@ -56,8 +65,19 @@ function App() {
           <Player initialName={"Player 2"} symbol={"O"} isActive={activePlayer === 'O'} />
         </ol>
         <GameBoard onSelectSquare={handleChangePlayer} actualPlayerSymbol={activePlayer} turns={gameTurns} />
-        {winner && <p>Wygrałeś {winner}</p> }
+        {winner && (
+          <div id="winner">
+            <span className="highlight-player">{winner}</span> wins!
+          </div>
+        )}
+        {!winner && isBoardFull(board) && (
+          <div id="winner">
+            <span className="highlight-player">It's a draw!</span>
+          </div>
+        )}
       </div>
+      <Log turns={gameTurns} />
+      
     </main>
   );
 }
