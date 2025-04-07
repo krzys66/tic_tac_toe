@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-export default function GameOver({winner}) {
+export default function GameOver({ winner, onReset }) {
   return (
     <div id="game-over">
         <h2>Koniec gry!</h2>
-        <p>{winner} wygrywa!</p>
+        {winner === "Draw" ? <p>Remis!</p> : <p>{winner} wygrywa!</p>}
         <p>
-            <button onClick={() => window.location.reload()}>Zagraj ponownie</button>
+            <button onClick={onReset}>Zagraj ponownie</button>
         </p>
     </div>
-  )
+  );
 }
